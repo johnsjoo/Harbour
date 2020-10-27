@@ -1,0 +1,26 @@
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.exe
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.deps.json
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.runtimeconfig.json
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.runtimeconfig.dev.json
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.dll
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.pdb
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.csprojAssemblyReference.cache
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.AssemblyInfoInputs.cache
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.AssemblyInfo.cs
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.csproj.CoreCompileInputs.cache
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.dll
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.pdb
+C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.genruntimeconfig.cache
+C:\Users\johns\Desktop\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.exe
+C:\Users\johns\Desktop\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.deps.json
+C:\Users\johns\Desktop\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.runtimeconfig.json
+C:\Users\johns\Desktop\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.runtimeconfig.dev.json
+C:\Users\johns\Desktop\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.dll
+C:\Users\johns\Desktop\Harbour\Harbour\bin\Debug\netcoreapp3.1\Harbour.pdb
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.csprojAssemblyReference.cache
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.AssemblyInfoInputs.cache
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.AssemblyInfo.cs
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.csproj.CoreCompileInputs.cache
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.dll
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.pdb
+C:\Users\johns\Desktop\Harbour\Harbour\obj\Debug\netcoreapp3.1\Harbour.genruntimeconfig.cache
