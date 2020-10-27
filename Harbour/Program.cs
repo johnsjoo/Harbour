@@ -31,6 +31,7 @@ namespace Harbour
                     r.TopSpeed = topSpeeed;
                     r.MaxNumberOfPassangers = rnd.Next(1,6);
                     
+                    
                 }
                 else if (randomNumber == 2)
                 {
