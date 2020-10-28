@@ -18,24 +18,20 @@ namespace Harbour
         public string BoatType { get; set; }
         public int Weight { get; set; }
         public double TopSpeed { get; set; }
-        public int BoatNumber { get; set; }
-        public int SlotID { get; set; }
+        public int SlotNumber { get; set; }
+     
 
 
 
-        public static double KnotsToKmPerHour(int number)
+        public static int KnotsToKmPerHour(double number)
         {
                  
             double result = number * 1.85200;
-            return result;
+            return (int)result;
 
             
         }
-        //public static void GetWheight(int firstNumber, int secondNumber)
-        //{
-        //    Console.WriteLine("vikt: " + rnd.Next(firstNumber,secondNumber));
-            
-        //}
+        
         
 
     }
