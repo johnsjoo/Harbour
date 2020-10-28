@@ -7,7 +7,7 @@ using System.Text;
 namespace Harbour
 {
 
-    
+    //List<Order> SortedList = arrival.OrderBy(o=>o.OrderDate).ToList();
 
 
     class Boat
@@ -19,7 +19,9 @@ namespace Harbour
         public int Weight { get; set; }
         public double TopSpeed { get; set; }
         public int SlotNumber { get; set; }
-     
+        public double BoatSize { get; set; }
+
+
 
 
 
