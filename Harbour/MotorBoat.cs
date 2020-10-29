@@ -7,6 +7,6 @@ namespace Harbour
     class MotorBoat : Boat
     {
         public int  HorsePower { get; set; }
-        public int MotorBoatDay { get; set; }
+        
     }
 }

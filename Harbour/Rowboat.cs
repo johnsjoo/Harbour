@@ -7,7 +7,7 @@ namespace Harbour
     class Rowboat : Boat
     {
         public int MaxNumberOfPassangers { get; set; }
-        public int RowBoatDay { get; set; }
+        
 
 
     }

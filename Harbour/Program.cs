@@ -28,13 +28,16 @@ namespace Harbour
             //läggg till båtar
             SlotCheckInHarbour(harBour, arrivalboats);
 
-
+            //Funktion för att kolla hur månnga dagar båtarna har kvar i hamnen.
+            DaysLeftInHarbour(harBour);
             //Bög båtar
             PrintingBoat(arrivalboats, harBour);
 
 
 
         }
+
+        
 
         public static void SlotCheckInHarbour(Boat[] harbour, List<Boat> arrivalboats)
         {
@@ -52,8 +55,8 @@ namespace Harbour
                 }
                 else
                 {
-                    //Avvisa båtjäveln
-                    Console.WriteLine("Avvisad båt" + b.BoatID);
+                    //Avvisa båt
+                    Console.WriteLine("Avvisad båt" + b.BoatID + "\t" + b.BoatType);
                 }
             }
 
@@ -121,8 +124,8 @@ namespace Harbour
                     r.BoatType = "Roddbåt";
                     r.TopSpeed = topSpeed;
                     r.MaxNumberOfPassangers = rnd.Next(1, 6);
-                    r.RowBoatDay = 1;
-                    r.BoatSize = 0.5;
+                    r.DaysLeft = 1;
+                    r.BoatSize = 1;
                     
                     arrivalboats.Add(r);
                     
@@ -139,7 +142,7 @@ namespace Harbour
                     m.BoatType = "Motorbåt";
                     m.TopSpeed = topSpeed;
                     m.HorsePower = rnd.Next(10, 1000);
-                    m.MotorBoatDay = 3;
+                    m.DaysLeft = 3;
                     m.BoatSize = 1;
                     
                     arrivalboats.Add(m);
@@ -155,7 +158,7 @@ namespace Harbour
                     s.BoatType = "Segelbåt";
                     s.TopSpeed = topSpeed;
                     s.SailBoatsLength = rnd.Next(10, 60);
-                    s.SailBoatDays = 4;
+                    s.DaysLeft = 4;
                     s.BoatSize = 2;
                     
                     arrivalboats.Add(s);
@@ -171,13 +174,33 @@ namespace Harbour
                     c.BoatType = "Lastfartyg";
                     c.TopSpeed = topSpeed;
                     c.NumberOfContainers = rnd.Next(0, 500);
-                    c.CargoDays = 6;
+                    c.DaysLeft = 6;
                     c.BoatSize = 4;
                    
                     arrivalboats.Add(c);
                 }
 
             }
+        }
+        private static void DaysLeftInHarbour(Boat[] harBour)
+        {
+            foreach (Boat b in harBour)
+            {
+                if (b.DaysLeft != 0)
+                {
+                    b.DaysLeft--;
+                }
+                else if (b.DaysLeft == 0)
+                {
+                    for (int i = 0; i < harBour.Length; i++)
+                    {
+                        harBour[i] = null;
+                    }
+                    
+                }
+                
+            }
+            
         }
 
         private static void PrintingBoat(List<Boat> arrivalboats, Boat[] harBour)

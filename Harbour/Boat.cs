@@ -20,7 +20,7 @@ namespace Harbour
         public double TopSpeed { get; set; }
         public int SlotNumber { get; set; }
         public double BoatSize { get; set; }
-
+        public int DaysLeft { get; set; }
 
 
 

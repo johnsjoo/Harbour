@@ -9,7 +9,7 @@ namespace Harbour
        
 
         public int NumberOfContainers { get; set; }
-        public int CargoDays { get; set; }
+        
 
 
 
