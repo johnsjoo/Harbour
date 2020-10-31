@@ -12,22 +12,26 @@ namespace Harbour
         static int freeSpaceCounter = 0;
         static int harbourDay = 0;
         static Random rnd = new Random();
+
         static void Main(string[] args)
         {
 
             List<Boat> arrivalboats = new List<Boat>();
-            Boat[] harBour = new Boat[64];
-
+            //Array med listor i. 
+            List<Boat>[] harBour = new List <Boat> [64];
+            ListsInArray(harBour);
             while (true)
             {
+                harbourDay++;
+                Console.WriteLine("DAG:" + harbourDay);
+                //Funktion för att kolla hur många dagar båtarna har kvar i hamnen.
+                DaysLeftInHarbour(harBour);
+
                 //skapa fem båtatr
                 DailyArrivalBoats(arrivalboats);
 
                 //läggg till båtar
                 SlotCheckInHarbour(harBour, arrivalboats);
-
-                //Funktion för att kolla hur många dagar båtarna har kvar i hamnen.
-                DaysLeftInHarbour(harBour);
 
                 //printa båtar
                 PrintingBoat(arrivalboats, harBour);
@@ -39,9 +43,15 @@ namespace Harbour
 
         }
 
-        
+        private static void ListsInArray(List<Boat>[] harBour)
+        {
+            for (int i = 0; i < harBour.Length; i++)
+            {
+                harBour[i] = new List<Boat>();
+            }
+        }
 
-        public static void SlotCheckInHarbour(Boat[] harbour, List<Boat> arrivalboats)
+        public static void SlotCheckInHarbour(List<Boat>[] harbour, List<Boat> arrivalboats)
         {
             //sorterar listan med båtar med störst båt först
             List<Boat> SortedBoats = arrivalboats.OrderByDescending(b => b.BoatSize).ToList();
@@ -66,13 +76,22 @@ namespace Harbour
         }
 
         //returnerar true om båten är fick lägga till i hamnen, false om den blev avvisad
-        public static bool PlaceBoatInHarbour(Boat[] harbour, Boat currentBoat)
+        public static bool PlaceBoatInHarbour(List<Boat>[] harbour, Boat currentBoat)
         {
             //loopa igenom alla platser i hamnen
             for (int i = 0; i < harbour.Length; i++)
             {
+                if (harbour[i].Count == 1)
+                {
+                    if (harbour[i].First() is Rowboat && currentBoat is Rowboat)
+                    {
+                        harbour[i].Add(currentBoat);
+                    }
+
+                }
+
                 //Om platsen är tom och edge-case om listan tar slut
-                if (harbour.ElementAtOrDefault(i) == null && currentBoat.BoatSize + i < harbour.Length)
+                if (harbour[i].Count == 0 && currentBoat.BoatSize + i < harbour.Length)
                 {
 
                     int startIndex = i;
@@ -82,7 +101,7 @@ namespace Harbour
                     for (int j = startIndex; j < startIndex + currentBoat.BoatSize; j++)
                     {
                         //om dom är det adderar vi
-                        if (harbour.ElementAtOrDefault(j) == null)
+                        if (harbour[j].Count == 0 )
                         {
                             numOfAdjacent++;
                         }
@@ -94,7 +113,7 @@ namespace Harbour
                         //samma loop som förut, men nu vet vi att alla platser är tomma så då lägger vi till båten på dessa platser/index. 
                         for (int j = startIndex; j < startIndex + currentBoat.BoatSize; j++)
                         {
-                            harbour[j] = currentBoat;
+                            harbour[j].Add(currentBoat);
                         }
                         //Vi kunde lägga till båten --> true
                         return true;
@@ -112,10 +131,11 @@ namespace Harbour
 
         private static void DailyArrivalBoats(List<Boat> arrivalboats)
         {
-            for (int i = 0; i < 5; i++)
+            arrivalboats.Clear();
+            for (int i = 0; i < 15; i++)
             {
                 
-                int randomNumber = rnd.Next(1, 4);
+                int randomNumber = rnd.Next(1, 5);
                 if (randomNumber == 1)
                 {
                     Rowboat r = new Rowboat();
@@ -128,7 +148,7 @@ namespace Harbour
                     r.TopSpeed = topSpeed;
                     r.MaxNumberOfPassangers = rnd.Next(1, 6);
                     r.DaysLeft = 1;
-                    r.BoatSize = 1;
+                    r.BoatSize = 0.5;
 
                     arrivalboats.Add(r);
 
@@ -186,33 +206,57 @@ namespace Harbour
 
             }
         }
-        private static void DaysLeftInHarbour(Boat[] currentboat)
+        private static void DaysLeftInHarbour(List<Boat>[] harBour)
         {
 
-            foreach (Boat b in currentboat) 
+
+            for (int i = 0; i < harBour.Length; i++)
             {
-                if (b.DaysLeft > 0)
+
+
+                if (harBour[i].Count == 0)
                 {
-                    b.DaysLeft--;
+                    continue;
                 }
-                else if (b.DaysLeft == 0)
+                else
                 {
-                    currentboat = null;
+                    if (harBour[i+1].Count == 0 || i == harBour.Length - 1)
+                    {
+                        harBour[i].First().DaysLeft--;
+
+                    }
+
+                    else if (harBour[i].First().BoatID != harBour[i+1].First().BoatID)
+                    {
+
+                        harBour[i].First().DaysLeft--;
+
+                    }
+
+
                 }
-
-
-
             }
-
-
-
+            for (int i = 0; i < harBour.Length; i++)
+            {
+                if (harBour[i].Count == 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    if (harBour[i].First().DaysLeft == 0)
+                    {
+                        harBour[i].Clear();
+                    }
+                }
+            }
         }
             
            
 
         
 
-        private static void PrintingBoat(List<Boat> arrivalboats, Boat[] harBour)
+        private static void PrintingBoat(List<Boat> arrivalboats, List<Boat>[] harBour)
         {
 
 
@@ -222,14 +266,14 @@ namespace Harbour
 
             for (int i = 0; i < harBour.Length; i++)
             {
-                if (harBour[i] == null)
+                if (harBour[i].Count == 0)
                 {
                     Console.WriteLine($"{i}\t Tomt");
                 }
                 else
                 {
-                    Boat boat = harBour[i];
-                    
+                    foreach (Boat boat in harBour[i])
+                    {
                         if (boat is Rowboat)
                         {
                             Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {(((Rowboat)boat).MaxNumberOfPassangers)}\tpassagerare");
@@ -246,6 +290,10 @@ namespace Harbour
                         {
                             Console.WriteLine($"{i}\t{boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {(((CargoShip)boat).NumberOfContainers)}\tContainrar");
                         }
+
+                    }
+                    
+                        
                     
                 }
 
