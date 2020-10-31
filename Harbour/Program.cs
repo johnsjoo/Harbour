@@ -18,8 +18,6 @@ namespace Harbour
             List<Boat> arrivalboats = new List<Boat>();
             Boat[] harBour = new Boat[64];
 
-
-
             while (true)
             {
                 //skapa fem båtatr
@@ -36,14 +34,7 @@ namespace Harbour
 
                 Thread.Sleep(5000);
             }
-                
-
-                
-            
-            
-
-            
-
+  
 
 
         }
@@ -123,7 +114,7 @@ namespace Harbour
         {
             for (int i = 0; i < 5; i++)
             {
-
+                
                 int randomNumber = rnd.Next(1, 4);
                 if (randomNumber == 1)
                 {
@@ -165,11 +156,12 @@ namespace Harbour
                     
                     string boatID = GenerateBoatId("S-");
                     int topSpeed = Boat.KnotsToKmPerHour(rnd.Next(1, 12));
+                    int sailBoatLengt = Boat.FotToMeter(rnd.Next(10, 60));
                     s.BoatID = boatID;
                     s.Weight = rnd.Next(800, 6000);
                     s.BoatType = "Segelbåt";
                     s.TopSpeed = topSpeed;
-                    s.SailBoatsLength = rnd.Next(10, 60);
+                    s.SailBoatsLength = sailBoatLengt;
                     s.DaysLeft = 4;
                     s.BoatSize = 2;
                     
@@ -194,35 +186,31 @@ namespace Harbour
 
             }
         }
-        private static void DaysLeftInHarbour(Boat[] harBour)
+        private static void DaysLeftInHarbour(Boat[] currentboat)
         {
-           
-            foreach (Boat b in harBour)
-            {
-                for (int i = 0; i < harBour.Length; i++)
-                {
-                    Boat currentboat = b;
 
-                    if (currentboat == null)
-                    {
-                        continue;
-                    }
-                    else if (currentboat.DaysLeft == 0)
-                    {
-                        currentboat.DaysLeft--;
-                    }
-                    else if (currentboat.DaysLeft == 0)
-                    {
-                        harBour[i] = null;
-                        
-                    }
-                    
-                    
+            foreach (Boat b in currentboat) 
+            {
+                if (b.DaysLeft > 0)
+                {
+                    b.DaysLeft--;
                 }
+                else if (b.DaysLeft == 0)
+                {
+                    currentboat = null;
+                }
+
+
 
             }
 
+
+
         }
+            
+           
+
+        
 
         private static void PrintingBoat(List<Boat> arrivalboats, Boat[] harBour)
         {

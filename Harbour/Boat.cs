@@ -25,7 +25,7 @@ namespace Harbour
 
 
 
-        public static int KnotsToKmPerHour(double number)
+        public static int KnotsToKmPerHour(int number)
         {
                  
             double result = number * 1.85200;
@@ -33,8 +33,13 @@ namespace Harbour
 
             
         }
-        
-        
+        public static int FotToMeter(int fot)
+        {
+            double value = fot * 0.3840;
+            return (int)value;
+        }
+
+
 
     }
     
