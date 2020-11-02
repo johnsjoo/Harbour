@@ -4,13 +4,14 @@ using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading;
+using System.Transactions;
 using System.Xml.Schema;
 
 namespace Harbour
 {
     class Program
     {
-        static int total = 0;
+        static int totalWeight = 0;
         static int rejectedBoats = 0;
         static int harbourDay = 0;
         static Random rnd = new Random();
@@ -23,10 +24,10 @@ namespace Harbour
             List<Boat>[] harBour = new List <Boat> [64];
             ListsInArray(harBour);
             Console.WriteLine("Tryck [Enter] för att påbörja en ny dag i hamnen");
+
             while (true)
             {
                 ConsoleKeyInfo key = Console.ReadKey();
-
                 switch (key.Key)
                 {
                     case ConsoleKey.Enter:
@@ -46,23 +47,14 @@ namespace Harbour
                         PrintingBoat(harBour);
 
                         //summerar information om hamnen.
-                        SumBoatinformation(harBour);
+                        //SumBoatinformation(harBour);
 
                         Thread.Sleep(5000);
                         break;
                     
                 }
-
-
-
-
-                
             }
-  
-
-
         }
-
         private static void SumBoatinformation(List<Boat>[] harBour)
         {
             int rowBoatCounter = 0;
@@ -70,18 +62,21 @@ namespace Harbour
             int cargoShipCounter = 0;
             int motorBoatCounter = 0;
 
+            int freeSlots = 0;
+
+            
             for (int i = 0; i < harBour.Length; i++)
             {
-               
-                if (harBour[i].Any() && harBour[i].FirstOrDefault().BoatID != harBour[i + 1].FirstOrDefault().BoatID)
+                if (harBour[i].Any() /*&& harBour[i].FirstOrDefault().BoatID != harBour[i + 1].FirstOrDefault().BoatID*/)
                 {
                     if (harBour[i].First() is Rowboat)
-                    {
+                    {  
                         rowBoatCounter++;
+                        
                     }
                     else if (harBour[i].First() is MotorBoat)
                     {
-                        motorBoatCounter++;
+                        motorBoatCounter++;  
                     }
                     else if (harBour[i].First() is SailBoat)
                     {
@@ -92,20 +87,21 @@ namespace Harbour
                         cargoShipCounter++;
                     }
                 }
-
-
             }
-            Console.WriteLine("Antal Segelbåtar" + sailBoatCounter);
+            int _SailSum = sailBoatCounter / 2;
+            int _CargoSum = cargoShipCounter / 4;
 
-            int freeSlots = 0;
+            
+            int _Rowsum = rowBoatCounter;
+            Console.WriteLine("Roddbåtar: " + _Rowsum);
+            Console.WriteLine("Segelbåtar: " + _SailSum);
+            Console.WriteLine("motorbåtar: " + motorBoatCounter);
+            Console.WriteLine("Lastfartyg: " + _CargoSum);
+            Console.WriteLine("Vikt: " + totalWeight );
+            
 
-            for (int i = 0; i < harBour.Length; i++)
-            {
-                if (harBour[i].Any())
-                {
-                    total = harBour[i].Sum(item => item.Weight);
-                }
-            }
+
+
 
             //summerar hamnens lediga platser just nu.
             for (int i = 0; i < harBour.Length; i++)
@@ -118,7 +114,7 @@ namespace Harbour
             Console.WriteLine("**************************SUMMERING**************************");
             Console.WriteLine($"Antal hela lediga platser i hamnen just nu: {freeSlots}");
             Console.WriteLine($"Antal avvisade båtar: {rejectedBoats}");
-            Console.WriteLine($"Total vikt i hamen just nu: {total}");
+            Console.WriteLine($"Total vikt i hamen just nu: {totalWeight}");
         }
 
         private static void ListsInArray(List<Boat>[] harBour)
@@ -212,7 +208,7 @@ namespace Harbour
         private static void DailyArrivalBoats(List<Boat> arrivalboats)
         {
             arrivalboats.Clear();
-            for (int i = 0; i < 15; i++)
+            for (int i = 0; i < 5; i++)
             {
                 
                 int randomNumber = rnd.Next(1, 5);
@@ -331,11 +327,6 @@ namespace Harbour
                 }
             }
         }
-            
-           
-
-        
-
         private static void PrintingBoat( List<Boat>[] harBour)
         {
 
@@ -354,7 +345,7 @@ namespace Harbour
                 {
                     foreach (Boat boat in harBour[i])
                     {
-                        if (boat is Rowboat)
+                        if (boat is Rowboat && )
                         {
                             Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {(((Rowboat)boat).MaxNumberOfPassangers)}\tpassagerare");
                         }
