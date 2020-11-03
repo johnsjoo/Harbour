@@ -57,21 +57,11 @@ namespace Harbour
         }
         private static void SumBoatinformation(List<Boat>[] harBour)
         {
-            int rCounter = 0;
+            
+            
+                
+            
 
-            for (int i = 0; i < harBour.Length; i++)
-            {
-                foreach (Boat item in harBour[i])
-                {
-                    if (item is Rowboat)
-                    {
-                        rCounter++;
-                        Console.WriteLine("Roddbåtar antal: " + rCounter);
-                    }
-
-                }
-               
-            }
         }
 
         private static void ListsInArray(List<Boat>[] harBour)
@@ -284,6 +274,8 @@ namespace Harbour
         }
         private static void PrintingBoat( List<Boat>[] harBour)
         {
+            //Hashset kan inte innehålla multipla objekt.
+            HashSet<Boat> allBoats = new HashSet<Boat>();
 
             Console.WriteLine($"Plats \t Båttyp \t ID \t Vikt \t MaxHastighet \t Unika egenskaper");
             Console.WriteLine("-------------------------------------------------------------------------");
@@ -299,6 +291,7 @@ namespace Harbour
                     
                     foreach (Boat boat in harBour[i])
                     {
+                        allBoats.Add(boat);
                         if (boat is Rowboat)
                         {
                             Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {(((Rowboat)boat).MaxNumberOfPassangers)}\tpassagerare");
@@ -321,6 +314,38 @@ namespace Harbour
                 
 
             }
+            Console.WriteLine("----------Summering------------");
+
+            //double totalRowboat = allBoats.Where(boat => boat.BoatType == "RowBoat").Count();
+
+            var ofTypeCargo = allBoats.OfType<CargoShip>();
+            Console.WriteLine($"Lastbåtar: {ofTypeCargo.Count()}");
+
+            var ofTypeSailBoat = allBoats.OfType<SailBoat>();
+            Console.WriteLine($"Sailbåtar: {ofTypeSailBoat.Count()}");
+
+            var ofTypeMotorBoat = allBoats.OfType<MotorBoat>();
+            Console.WriteLine($"Motorbåtar:{ofTypeMotorBoat.Count()}");
+
+            var ofTypeRowBoat = allBoats.OfType<Rowboat>();
+            Console.WriteLine($"Roddbåtar: {ofTypeRowBoat.Count()}");
+
+            //Summerar vikten
+            double totalWeight = allBoats.Sum(boat => boat.Weight);
+
+            //Medelvärde av maxhastighet
+            double averageSpeed = allBoats.Average(boat => boat.TopSpeed);
+
+
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine($"Total Vikt:      {totalWeight}");
+            Console.WriteLine($"Medelhastighet:  {averageSpeed}");
+
+            foreach (Boat boat in allBoats)
+            {
+                Console.WriteLine(boat.BoatType + " "+ boat.BoatID);
+            }
+
         }
         private static string GenerateBoatId(string boatID)
         {
