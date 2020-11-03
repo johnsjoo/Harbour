@@ -95,6 +95,7 @@ namespace Harbour
                 if (PlaceBoatInHarbour(harBour, b))
                 {
                     //boat is in harbour
+                    
                 }
                 else
                 {
@@ -114,19 +115,18 @@ namespace Harbour
             //loopa igenom alla platser i hamnen
             for (int i = 0; i < harBour.Length; i++)
             {
-                if (currentBoat is Rowboat && harBour[i].Count == 1 && harBour[i].First() is Rowboat )
+                if (harBour[i].Count == 1 && currentBoat is Rowboat && harBour[i].First() is Rowboat)
                 {
 
                     harBour[i].Add(currentBoat);
                     counter++;
-                    Console.WriteLine("KOLLA HÄR EFTER MIG RODDBÅT " + counter);
-
+                    return true; 
                 }
-
+                
+          
                 //Om platsen är tom och edge-case om listan tar slut
                 if (harBour[i].Count == 0 && currentBoat.BoatSize + i < harBour.Length)
                 {
-                    
                     int startIndex = i;
                     //Närliggande lediga platser
                     int numOfAdjacent = 0;
@@ -134,7 +134,7 @@ namespace Harbour
                     for (int j = startIndex; j < startIndex + currentBoat.BoatSize; j++)
                     {
                         //om dom är det adderar vi
-                        if (harBour[j].Count == 0 )
+                        if (harBour[j].Count == 0)
                         {
                             numOfAdjacent++;
                         }
@@ -142,19 +142,17 @@ namespace Harbour
                     //Om alla nästkommande platser tom båtens storlek är tomma kan får båten plats, så vi lägger till.
                     if (numOfAdjacent == currentBoat.BoatSize)
                     {
-                        
                         //samma loop som förut, men nu vet vi att alla platser är tomma så då lägger vi till båten på dessa platser/index. 
                         for (int j = startIndex; j < startIndex + currentBoat.BoatSize; j++)
                         {
+
                             harBour[j].Add(currentBoat);
 
                         }
                         //Vi kunde lägga till båten --> true
                         return true;
-                        
                     }
                 }
-
             }
             //fall vi kör igenom hela for-loopen och inget händer får vi avvisa båten
             return false;
