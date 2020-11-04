@@ -30,18 +30,15 @@ namespace Harbour
 
             while (true)
             {
+                ReadFile(harBour, path, arrivalboats);
+                WriteToFile(harBour, path);
+                
+
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
                     case ConsoleKey.Enter:
-
-                        //Kolla skapad fil
-                        WriteToFile(harBour, path);
-                        //om hittad fil skriv till filen
-
-                        ReadFile(harBour, path, arrivalboats);
-                        //annars skapa en fil.
-
+                        Console.Clear();
                         harbourDay++;
                         Console.WriteLine("DAG:" + harbourDay);
 
@@ -56,6 +53,7 @@ namespace Harbour
 
                         //printa båtar
                         PrintingBoat(harBour);
+                        
                         break;  
                 }
             }
@@ -71,8 +69,7 @@ namespace Harbour
                 {
                     CargoShip c = new CargoShip();
 
-                    string boatID = GenerateBoatId("L-");
-                    int topSpeed = Boat.KnotsToKmPerHour(rnd.Next(1, 20));
+                    
                     c.BoatID = boatLine[2];
                     c.Weight = int.Parse(boatLine[3]);
                     c.BoatType = "Lastfartyg";
@@ -87,8 +84,7 @@ namespace Harbour
                 {
                     MotorBoat m = new MotorBoat();
 
-                    string boatID = GenerateBoatId("M-");
-                    int topSpeed = Boat.KnotsToKmPerHour(rnd.Next(1, 60));
+                    
                     m.BoatID = boatLine[2];
                     m.Weight = int.Parse(boatLine[3]);
                     m.BoatType = "Motorbåt";
@@ -104,15 +100,14 @@ namespace Harbour
                 {
                     Rowboat r = new Rowboat();
 
-                    string boatID = GenerateBoatId("R-");
-                    int topSpeed = Boat.KnotsToKmPerHour(rnd.Next(1, 3));
-                    r.BoatID = boatID;
-                    r.Weight = rnd.Next(100, 300);
+                    
+                    r.BoatID = boatLine[2];
+                    r.Weight = int.Parse(boatLine[3]);
                     r.BoatType = "Roddbåt";
-                    r.TopSpeed = topSpeed;
-                    r.uniqueProp = rnd.Next(1, 6);
-                    r.DaysLeft = 1;
-                    r.BoatSize = 1;
+                    r.TopSpeed = int.Parse(boatLine[4]);
+                    r.uniqueProp = int.Parse(boatLine[5]);
+                    r.DaysLeft = int.Parse(boatLine[6]);
+                    r.BoatSize = int.Parse(boatLine[7]);
 
                     arrivalboats.Add(r);
                 }
@@ -120,47 +115,47 @@ namespace Harbour
                 {
                     SailBoat s = new SailBoat();
 
-                    string boatID = GenerateBoatId("S-");
-                    int topSpeed = Boat.KnotsToKmPerHour(rnd.Next(1, 12));
-                    int sailBoatLengt = Boat.FotToMeter(rnd.Next(10, 60));
-                    s.BoatID = boatID;
-                    s.Weight = rnd.Next(800, 6000);
+                   
+                    s.BoatID = boatLine[2];
+                    s.Weight = int.Parse(boatLine[3]);
                     s.BoatType = "Segelbåt";
-                    s.TopSpeed = topSpeed;
-                    s.uniqueProp = sailBoatLengt;
-                    s.DaysLeft = 4;
-                    s.BoatSize = 2;
+                    s.TopSpeed = int.Parse(boatLine[4]);
+                    s.uniqueProp = int.Parse(boatLine[5]);
+                    s.DaysLeft = int.Parse(boatLine[6]);
+                    s.BoatSize = int.Parse(boatLine[7]);
 
-                    arrivalboats.Add(s);
-                }
-                
+                    arrivalboats.Add(s);    
+                } 
             }
         }
 
         private static void WriteToFile(List<Boat>[]harBour, string path)
         {
             path = @"C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\HarbourInformation.txt";
-            
-            //if (File.Exists(path))
-            
-                using StreamWriter sw = new StreamWriter(path);
+
+            using StreamWriter sw = new StreamWriter(path);
+            {
+                for (int i = 0; i < harBour.Length; i++)
                 {
-
-                    for (int i = 0; i < harBour.Length; i++)
-                    {
-
-                        if (harBour[i].Count != 0)
-                        {
-                            foreach (Boat boat in harBour[i])
-                            {
-                                sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
-                            }
-                        }
-                    }
+                     if (harBour[i].Count != 0)
+                     {
+                         foreach (Boat boat in harBour[i])
+                         {
+                             
+                                 if (i == harBour.Length - 1 || harBour[i + 1].Count == 0)
+                                 {
+                                    sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
+                                 }
+                                 else if (harBour[i].First().BoatID != harBour[i + 1].First().BoatID)
+                                 {
+                                    sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
+                                 }
+                              
+                         }
+                     }
                 }
+            }
         }
-        
-
         private static void ListsInArray(List<Boat>[] harBour)
         {
             for (int i = 0; i < harBour.Length; i++)
@@ -363,7 +358,7 @@ namespace Harbour
             Console.WriteLine($"Plats \t Båttyp \t ID \t Vikt \t MaxHastighet \t Unika egenskaper");
             Console.WriteLine("-------------------------------------------------------------------------");
 
-            for (int i = 0; i < harBour.Length; i++)
+            for (int i = 0; i <  harBour.Length; i++)
             {
                 if (harBour[i].Count == 0)
                 {
@@ -376,8 +371,8 @@ namespace Harbour
                     {
                         allBoats.Add(boat);
                         if (boat is Rowboat)
-                        {
-                            Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tpassagerare");
+                        { 
+                            Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tpassagerare");  
                         }
                         else if (boat is MotorBoat)
                         {
@@ -385,17 +380,17 @@ namespace Harbour
                         }
                         else if (boat is SailBoat)
                         {
-                            Console.WriteLine($"{i}\t{boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp} \t m");   
+                            Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp} \t m");   
                         }
                         else if (boat is CargoShip)
                         {
-                            Console.WriteLine($"{i}\t{boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tContainrar");   
+                            Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tpassagerare");
                         }
                     }  
                 }
             }
 
-            Console.WriteLine("----------Summering------------");
+            Console.WriteLine("------------Summering------------");
 
             //double totalRowboat = allBoats.Where(boat => boat.BoatType == "RowBoat").Count();
 
@@ -418,9 +413,9 @@ namespace Harbour
             double averageSpeed = allBoats.Average(boat => boat.TopSpeed);
 
 
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine($"Total Vikt:      {totalWeight}");
-            Console.WriteLine($"Medelhastighet:  {averageSpeed}");
+            Console.WriteLine("---------------------------------");
+            Console.WriteLine($"Total Vikt:      {totalWeight}    kg");
+            Console.WriteLine($"Medelhastighet:  {Math.Round(averageSpeed)}\t  km/h");
             Console.WriteLine($"Avisade båtar:   {rejectedBoats}");
             Console.WriteLine($"Lediga platser:  {freespaceCounter}");
 
