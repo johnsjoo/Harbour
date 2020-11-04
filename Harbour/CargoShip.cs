@@ -8,7 +8,7 @@ namespace Harbour
     {
        
 
-        public int NumberOfContainers { get; set; }
+        
         
 
 

@@ -22,7 +22,7 @@ namespace Harbour
         public double BoatSize { get; set; }
         public int DaysLeft { get; set; }
 
-
+        public int uniqueProp { get; set; }
 
 
         public static int KnotsToKmPerHour(int number)

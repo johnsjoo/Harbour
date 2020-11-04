@@ -1,0 +1,13 @@
+0;Lastfartyg;L-KTD;16150;11;352;6;4
+1;Lastfartyg;L-KTD;16150;11;352;6;4
+2;Lastfartyg;L-KTD;16150;11;352;6;4
+3;Lastfartyg;L-KTD;16150;11;352;6;4
+4;Lastfartyg;L-KTM;13466;33;382;6;4
+5;Lastfartyg;L-KTM;13466;33;382;6;4
+6;Lastfartyg;L-KTM;13466;33;382;6;4
+7;Lastfartyg;L-KTM;13466;33;382;6;4
+8;Segelbåt;S-LOA;3739;14;9;4;2
+9;Segelbåt;S-LOA;3739;14;9;4;2
+10;Segelbåt;S-ARE;3845;20;15;4;2
+11;Segelbåt;S-ARE;3845;20;15;4;2
+12;Roddbåt;R-JBJ;206;1;5;1;1

@@ -6,7 +6,7 @@ namespace Harbour
 {
     class SailBoat : Boat
     {
-        public int SailBoatsLength { get; set; }
+        
         
 
     }
