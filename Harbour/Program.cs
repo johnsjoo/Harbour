@@ -105,7 +105,7 @@ namespace Harbour
                
 
                 //Om platsen är tom och edge-case om listan tar slut
-                else if (harBour[i].Count == 0 && currentBoat.BoatSize + i < harBour.Length)
+                if (harBour[i].Count == 0 && currentBoat.BoatSize + i <= harBour.Length)
                 {
                     int startIndex = i;
                     //Närliggande lediga platser
@@ -232,18 +232,14 @@ namespace Harbour
                 }
                 else
                 {
-
-                    if (harBour[i+1].Count == 0 || i == harBour.Length)
-                    {
+                    if (i == harBour.Length - 1 || harBour[i+1].Count == 0) 
+                    { 
                         harBour[i].First().DaysLeft--;
-
                     }
                     
                     else if (harBour[i].First().BoatID != harBour[i+1].First().BoatID)
                     {
-
                         harBour[i].First().DaysLeft--;
-
                     }
 
 
@@ -300,12 +296,10 @@ namespace Harbour
                         {
                             Console.WriteLine($"{i}\t{boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {(((CargoShip)boat).NumberOfContainers)}\tContainrar");
                         }
-                       
-                        
+   
                     }
                     
                 }
-                
 
             }
 
@@ -336,10 +330,6 @@ namespace Harbour
             Console.WriteLine($"Total Vikt:      {totalWeight}");
             Console.WriteLine($"Medelhastighet:  {averageSpeed}");
 
-            foreach (Boat boat in allBoats)
-            {
-                Console.WriteLine(boat.BoatType + " "+ boat.BoatID);
-            }
 
         }
         private static string GenerateBoatId(string boatID)
