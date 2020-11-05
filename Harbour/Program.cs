@@ -34,15 +34,17 @@ namespace Harbour
             while (true)
             {
                 
+
                 ReadFile(harBour, path, arrivalboats);
-                WriteToFile(harBour, path);
                 
-               
+
+
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
-                    
                     case ConsoleKey.Enter:
+                        
+
                         Console.Clear();
                         harbourDay++;
                         Console.WriteLine("DAG:" + harbourDay);
@@ -56,8 +58,9 @@ namespace Harbour
                         //läggg till båtar
                         SlotCheckInHarbour(harBour, arrivalboats);
 
-                        //printa båtar
+                        //printa hamnen
                         PrintingBoat(harBour);
+                        WriteToFile(harBour, path);
                         break;  
                 }
             }
@@ -81,9 +84,8 @@ namespace Harbour
                         c.uniqueProp = int.Parse(boatLine[5]);
                         c.DaysLeft = int.Parse(boatLine[6]);
                         c.BoatSize = int.Parse(boatLine[7]);
-
                         arrivalboats.Add(c);
-
+                        
                     }
                     else if (boatLine[1] == "Motorbåt")
                     {
@@ -96,8 +98,8 @@ namespace Harbour
                         m.uniqueProp = int.Parse(boatLine[5]);
                         m.DaysLeft = int.Parse(boatLine[6]);
                         m.BoatSize = int.Parse(boatLine[7]);
-
                         arrivalboats.Add(m);
+
 
                     }
                     else if (boatLine[1] == "Roddbåt")
@@ -111,8 +113,8 @@ namespace Harbour
                         r.uniqueProp = int.Parse(boatLine[5]);
                         r.DaysLeft = int.Parse(boatLine[6]);
                         r.BoatSize = int.Parse(boatLine[7]);
-
                         arrivalboats.Add(r);
+
 
                     }
                     else if (boatLine[1] == "Segelbåt")
@@ -126,9 +128,7 @@ namespace Harbour
                         s.uniqueProp = int.Parse(boatLine[5]);
                         s.DaysLeft = int.Parse(boatLine[6]);
                         s.BoatSize = int.Parse(boatLine[7]);
-
                         arrivalboats.Add(s);
-
 
                     }
                 }
@@ -183,7 +183,7 @@ namespace Harbour
                 //metoden returnerar en bool om den fick lägga till eller inte
                 if (PlaceBoatInHarbour(harBour, b))
                 {
-                    //boat is in harbour.
+                    //if true: boat is in harbour.
                 }
                 else
                 {

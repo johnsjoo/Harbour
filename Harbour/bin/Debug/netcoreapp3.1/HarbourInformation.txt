@@ -1,5 +1,5 @@
-3;Lastfartyg;L-KBI;8541;29;375;6;4
-7;Lastfartyg;L-OXN;12116;1;448;6;4
-8;Roddbåt;R-QPI;224;1;1;1;1
-8;Roddbåt;R-GAV;154;1;5;1;1
-9;Roddbåt;R-HNI;239;3;5;1;1
+3;Lastfartyg;L-MNB;5134;25;349;6;4
+5;Segelbåt;S-CYU;1465;16;12;4;2
+7;Segelbåt;S-VUQ;1834;18;14;4;2
+8;Roddbåt;R-YUA;102;1;2;1;1
+8;Roddbåt;R-LWJ;158;3;4;1;1
