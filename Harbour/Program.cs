@@ -17,6 +17,7 @@ namespace Harbour
         static string path = @"C:\Users\John\Desktop\c# Uppgifter\Harbour\Harbour\bin\Debug\netcoreapp3.1\HarbourInformation.txt";
         static int rejectedBoats = 0;
         static int harbourDay = 0;
+        
         static Random rnd = new Random();
 
         static void Main(string[] args)
@@ -28,32 +29,37 @@ namespace Harbour
             ListsInArray(harBour);
             Console.WriteLine("Tryck [Enter] för att påbörja en ny dag i hamnen");
 
+           
+
             while (true)
             {
+
+
                 ReadFile(harBour, path, arrivalboats);
                 WriteToFile(harBour, path);
-                
+
+
 
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
+                    
                     case ConsoleKey.Enter:
                         Console.Clear();
                         harbourDay++;
                         Console.WriteLine("DAG:" + harbourDay);
-
+                        
                         //Funktion för att kolla hur många dagar båtarna har kvar i hamnen.
                         DaysLeftInHarbour(harBour);
 
-                        //skapa fem båtatr
+                        //skapa fem båtar
                         DailyArrivalBoats(arrivalboats);
-
+                        
                         //läggg till båtar
                         SlotCheckInHarbour(harBour, arrivalboats);
 
                         //printa båtar
                         PrintingBoat(harBour);
-                        
                         break;  
                 }
             }
@@ -61,72 +67,73 @@ namespace Harbour
 
         private static void ReadFile(List<Boat>[] harBour, string path,List<Boat> arrivalboats)
         {
-            //0;Lastfartyg;L-FFD;6135;18;311;
+            
             foreach (var boat in File.ReadLines(path, System.Text.Encoding.UTF8))
             {
-                string[] boatLine =  boat.Split(';');
+                string[] boatLine = boat.Split(';');
                 if (boatLine[1] == "Lastfartyg")
                 {
                     CargoShip c = new CargoShip();
 
-                    
                     c.BoatID = boatLine[2];
                     c.Weight = int.Parse(boatLine[3]);
-                    c.BoatType = "Lastfartyg";
+                    c.BoatType = boatLine[1];
                     c.TopSpeed = int.Parse(boatLine[4]);
                     c.uniqueProp = int.Parse(boatLine[5]);
                     c.DaysLeft = int.Parse(boatLine[6]);
                     c.BoatSize = int.Parse(boatLine[7]);
 
                     arrivalboats.Add(c);
+                    
                 }
                 else if (boatLine[1] == "Motorbåt")
                 {
                     MotorBoat m = new MotorBoat();
 
-                    
                     m.BoatID = boatLine[2];
                     m.Weight = int.Parse(boatLine[3]);
-                    m.BoatType = "Motorbåt";
+                    m.BoatType = boatLine[1];
                     m.TopSpeed = int.Parse(boatLine[4]);
                     m.uniqueProp = int.Parse(boatLine[5]);
                     m.DaysLeft = int.Parse(boatLine[6]);
                     m.BoatSize = int.Parse(boatLine[7]);
 
                     arrivalboats.Add(m);
-
+                    
                 }
                 else if (boatLine[1] == "Roddbåt")
                 {
                     Rowboat r = new Rowboat();
 
-                    
                     r.BoatID = boatLine[2];
                     r.Weight = int.Parse(boatLine[3]);
-                    r.BoatType = "Roddbåt";
+                    r.BoatType = boatLine[1];
                     r.TopSpeed = int.Parse(boatLine[4]);
                     r.uniqueProp = int.Parse(boatLine[5]);
                     r.DaysLeft = int.Parse(boatLine[6]);
                     r.BoatSize = int.Parse(boatLine[7]);
 
                     arrivalboats.Add(r);
+                    
                 }
                 else if (boatLine[1] == "Segelbåt")
                 {
                     SailBoat s = new SailBoat();
 
-                   
                     s.BoatID = boatLine[2];
                     s.Weight = int.Parse(boatLine[3]);
-                    s.BoatType = "Segelbåt";
+                    s.BoatType = boatLine[1];
                     s.TopSpeed = int.Parse(boatLine[4]);
                     s.uniqueProp = int.Parse(boatLine[5]);
                     s.DaysLeft = int.Parse(boatLine[6]);
                     s.BoatSize = int.Parse(boatLine[7]);
 
-                    arrivalboats.Add(s);    
-                } 
+                    arrivalboats.Add(s);
+
+
+                }
             }
+            
         }
 
         private static void WriteToFile(List<Boat>[]harBour, string path)
@@ -141,16 +148,15 @@ namespace Harbour
                      {
                          foreach (Boat boat in harBour[i])
                          {
-                             
-                                 if (i == harBour.Length - 1 || harBour[i + 1].Count == 0)
-                                 {
-                                    sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
-                                 }
-                                 else if (harBour[i].First().BoatID != harBour[i + 1].First().BoatID)
-                                 {
-                                    sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
-                                 }
-                              
+                            if (i == harBour.Length - 1 || harBour[i + 1].Count == 0)
+                            {
+                                sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
+                            }
+                            else if (harBour[i].First().BoatID != harBour[i + 1].First().BoatID)
+                            {
+                                sw.WriteLine($"{i};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
+
+                            }
                          }
                      }
                 }
@@ -370,21 +376,24 @@ namespace Harbour
                     foreach (Boat boat in harBour[i])
                     {
                         allBoats.Add(boat);
-                        if (boat is Rowboat)
+                        if (boat is Rowboat)//klar
                         { 
                             Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tpassagerare");  
                         }
-                        else if (boat is MotorBoat)
+                        else if (boat is MotorBoat)//klar
                         {
                             Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\thästkrafter");  
                         }
                         else if (boat is SailBoat)
                         {
-                            Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp} \t m");   
+                            Console.WriteLine($"{i}-{i+1}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp} \t m");
+                            i += 1;
                         }
                         else if (boat is CargoShip)
                         {
-                            Console.WriteLine($"{i}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tpassagerare");
+                            
+                            Console.WriteLine($"{i}-{i+3}\t {boat.BoatType} \t {boat.BoatID} \t {boat.Weight} \t {boat.TopSpeed} km/h \t {boat.uniqueProp}\tpassagerare");
+                            i += 3;
                         }
                     }  
                 }
