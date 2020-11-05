@@ -22,7 +22,7 @@ namespace Harbour
 
         static void Main(string[] args)
         {
-
+            
             List<Boat> arrivalboats = new List<Boat>();
             //Array med listor i. 
             List<Boat>[] harBour = new List <Boat> [64];
@@ -33,13 +33,11 @@ namespace Harbour
 
             while (true)
             {
-
-
+                
                 ReadFile(harBour, path, arrivalboats);
                 WriteToFile(harBour, path);
-
-
-
+                
+               
                 ConsoleKeyInfo key = Console.ReadKey();
                 switch (key.Key)
                 {
@@ -67,72 +65,76 @@ namespace Harbour
 
         private static void ReadFile(List<Boat>[] harBour, string path,List<Boat> arrivalboats)
         {
-            
-            foreach (var boat in File.ReadLines(path, System.Text.Encoding.UTF8))
+            if (File.Exists(path))
             {
-                string[] boatLine = boat.Split(';');
-                if (boatLine[1] == "Lastfartyg")
+                foreach (var boat in File.ReadLines(path, System.Text.Encoding.UTF8))
                 {
-                    CargoShip c = new CargoShip();
+                    string[] boatLine = boat.Split(';');
+                    if (boatLine[1] == "Lastfartyg")
+                    {
+                        CargoShip c = new CargoShip();
 
-                    c.BoatID = boatLine[2];
-                    c.Weight = int.Parse(boatLine[3]);
-                    c.BoatType = boatLine[1];
-                    c.TopSpeed = int.Parse(boatLine[4]);
-                    c.uniqueProp = int.Parse(boatLine[5]);
-                    c.DaysLeft = int.Parse(boatLine[6]);
-                    c.BoatSize = int.Parse(boatLine[7]);
+                        c.BoatID = boatLine[2];
+                        c.Weight = int.Parse(boatLine[3]);
+                        c.BoatType = boatLine[1];
+                        c.TopSpeed = int.Parse(boatLine[4]);
+                        c.uniqueProp = int.Parse(boatLine[5]);
+                        c.DaysLeft = int.Parse(boatLine[6]);
+                        c.BoatSize = int.Parse(boatLine[7]);
 
-                    arrivalboats.Add(c);
-                    
+                        arrivalboats.Add(c);
+
+                    }
+                    else if (boatLine[1] == "Motorbåt")
+                    {
+                        MotorBoat m = new MotorBoat();
+
+                        m.BoatID = boatLine[2];
+                        m.Weight = int.Parse(boatLine[3]);
+                        m.BoatType = boatLine[1];
+                        m.TopSpeed = int.Parse(boatLine[4]);
+                        m.uniqueProp = int.Parse(boatLine[5]);
+                        m.DaysLeft = int.Parse(boatLine[6]);
+                        m.BoatSize = int.Parse(boatLine[7]);
+
+                        arrivalboats.Add(m);
+
+                    }
+                    else if (boatLine[1] == "Roddbåt")
+                    {
+                        Rowboat r = new Rowboat();
+
+                        r.BoatID = boatLine[2];
+                        r.Weight = int.Parse(boatLine[3]);
+                        r.BoatType = boatLine[1];
+                        r.TopSpeed = int.Parse(boatLine[4]);
+                        r.uniqueProp = int.Parse(boatLine[5]);
+                        r.DaysLeft = int.Parse(boatLine[6]);
+                        r.BoatSize = int.Parse(boatLine[7]);
+
+                        arrivalboats.Add(r);
+
+                    }
+                    else if (boatLine[1] == "Segelbåt")
+                    {
+                        SailBoat s = new SailBoat();
+
+                        s.BoatID = boatLine[2];
+                        s.Weight = int.Parse(boatLine[3]);
+                        s.BoatType = boatLine[1];
+                        s.TopSpeed = int.Parse(boatLine[4]);
+                        s.uniqueProp = int.Parse(boatLine[5]);
+                        s.DaysLeft = int.Parse(boatLine[6]);
+                        s.BoatSize = int.Parse(boatLine[7]);
+
+                        arrivalboats.Add(s);
+
+
+                    }
                 }
-                else if (boatLine[1] == "Motorbåt")
-                {
-                    MotorBoat m = new MotorBoat();
-
-                    m.BoatID = boatLine[2];
-                    m.Weight = int.Parse(boatLine[3]);
-                    m.BoatType = boatLine[1];
-                    m.TopSpeed = int.Parse(boatLine[4]);
-                    m.uniqueProp = int.Parse(boatLine[5]);
-                    m.DaysLeft = int.Parse(boatLine[6]);
-                    m.BoatSize = int.Parse(boatLine[7]);
-
-                    arrivalboats.Add(m);
-                    
-                }
-                else if (boatLine[1] == "Roddbåt")
-                {
-                    Rowboat r = new Rowboat();
-
-                    r.BoatID = boatLine[2];
-                    r.Weight = int.Parse(boatLine[3]);
-                    r.BoatType = boatLine[1];
-                    r.TopSpeed = int.Parse(boatLine[4]);
-                    r.uniqueProp = int.Parse(boatLine[5]);
-                    r.DaysLeft = int.Parse(boatLine[6]);
-                    r.BoatSize = int.Parse(boatLine[7]);
-
-                    arrivalboats.Add(r);
-                    
-                }
-                else if (boatLine[1] == "Segelbåt")
-                {
-                    SailBoat s = new SailBoat();
-
-                    s.BoatID = boatLine[2];
-                    s.Weight = int.Parse(boatLine[3]);
-                    s.BoatType = boatLine[1];
-                    s.TopSpeed = int.Parse(boatLine[4]);
-                    s.uniqueProp = int.Parse(boatLine[5]);
-                    s.DaysLeft = int.Parse(boatLine[6]);
-                    s.BoatSize = int.Parse(boatLine[7]);
-
-                    arrivalboats.Add(s);
-
-
-                }
+                
             }
+           
             
         }
 
