@@ -153,8 +153,7 @@ namespace Harbour
                 {
                     if (harBour[i].Count == 0)
                     {
-                        sw.WriteLine($"{i};Tomt");
-                        
+                        sw.WriteLine($"{i};Tomt"); 
                     }
                     else
                     {
@@ -176,7 +175,6 @@ namespace Harbour
                             }
                             else if (boat is CargoShip)
                             {
-
                                 sw.WriteLine($"{i};{i+1};{i+2};{i+3};{boat.BoatType};{boat.BoatID};{boat.Weight};{boat.TopSpeed};{boat.uniqueProp};{boat.DaysLeft};{boat.BoatSize}");
                                 i += 3;
                             }
@@ -245,7 +243,7 @@ namespace Harbour
                             numOfAdjacent++;
                         }
                     }
-                    //Om alla nästkommande platser tom båtens storlek är tomma kan får båten plats, så vi lägger till.
+                    //Om alla nästkommande platser tom båtens storlek är tomma kan båten få plats, så vi lägger till.
                     if (numOfAdjacent == currentBoat.BoatSize)
                     {
                         
