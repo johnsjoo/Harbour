@@ -36,7 +36,7 @@ namespace Harbour
                 switch (key.Key)
                 {
                     case ConsoleKey.Enter:
- 
+
                         Console.Clear();
                         harbourDay++;
                         Console.WriteLine("DAG:" + harbourDay);
@@ -208,7 +208,7 @@ namespace Harbour
                 {
                     //Avvisa båt
                     Console.WriteLine("Avvisad båt" + b.BoatID + "\t" + b.BoatType);
-                    rejectedBoats++;
+                    
                     
                 }
             }
@@ -267,7 +267,7 @@ namespace Harbour
         {
             //Skapar våra 5 dagliga inkommande båtar.
             arrivalboats.Clear();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 15; i++)
             {
                 int randomNumber = rnd.Next(1, 5);
                 if (randomNumber == 1)
