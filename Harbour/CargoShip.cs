@@ -6,19 +6,5 @@ namespace Harbour
 {
     class CargoShip : Boat
     {
-       
-
-        
-        
-
-
-
-        public static int RandomContainers() 
-        {
-            Random rnd = new Random();
-            int random = rnd.Next(0,500);
-            return random;
-
-        }
     }
 }

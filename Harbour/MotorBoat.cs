@@ -5,8 +5,6 @@ using System.Text;
 namespace Harbour
 {
     class MotorBoat : Boat
-    {
-        
-        
+    {  
     }
 }

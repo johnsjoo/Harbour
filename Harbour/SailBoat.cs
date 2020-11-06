@@ -6,9 +6,6 @@ namespace Harbour
 {
     class SailBoat : Boat
     {
-        
-        
-
     }
     
 }

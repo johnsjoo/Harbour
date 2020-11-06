@@ -21,26 +21,28 @@ namespace Harbour
         public int SlotNumber { get; set; }
         public double BoatSize { get; set; }
         public int DaysLeft { get; set; }
-
         public int uniqueProp { get; set; }
 
 
         public static int KnotsToKmPerHour(int number)
-        {
-                 
+        {        
             double result = number * 1.85200;
             return (int)result;
-
-            
         }
         public static int FotToMeter(int fot)
         {
             double value = fot * 0.3840;
             return (int)value;
         }
-
-
-
+        public static string GenerateBoatId(string boatID)
+        {
+            //Metod som returnerar 3 unika bpkstäver till vårt Boat-id.
+            for (int i = 0; i < 3; i++)
+            {
+                char randomChar = (char)rnd.Next('A', 'Z');
+                boatID += randomChar;
+            }
+            return boatID;
+        }
     }
-    
 }
