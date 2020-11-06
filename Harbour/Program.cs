@@ -159,7 +159,7 @@ namespace Harbour
 
             using StreamWriter sw = new StreamWriter(path);
             {
-                HashSet<Boat> allBoats = new HashSet<Boat>();
+                List<Boat> allBoats = new List<Boat>();
 
                 for (int i = 0; i < harBour.Length; i++)
                 {
@@ -219,14 +219,10 @@ namespace Harbour
                     //Vid false Avvisas båten.
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine("Avvisad båt" + b.BoatID + "\t" + b.BoatType);
+                    Console.WriteLine($"Avvisad båt {b.BoatType}\t{b.BoatID}\t med storleken\t {b.BoatSize}");
                     Console.ResetColor();
-                    
-
-                }
-                   
+                } 
             }
-            
         }
         public static bool PlaceBoatInHarbour(List<Boat>[] harBour, Boat currentBoat)
         {
@@ -388,8 +384,9 @@ namespace Harbour
         {
             //Här skriver vi ut hamnen i consolfönstret.
             int freespaceCounter = 0;
-            //Hashset kan inte innehålla multipla objekt.
-            HashSet<Boat> allBoats = new HashSet<Boat>();
+            //Hashset kan inte innehålla multipla objekt, fanns som ersättning till List i föregående version.
+            //HashSet<Boat> allBoats = new HashSet<Boat>();
+            List<Boat> allBoats = new List<Boat>();
 
             Console.WriteLine($"Plats \t Båttyp \t ID \t Vikt \t MaxHastighet \t Unika egenskaper");
             Console.WriteLine("------------------------------------------------------------------------------");
@@ -399,10 +396,8 @@ namespace Harbour
                 
                 if (harBour[i].Count == 0)
                 {
-          
-                        Console.WriteLine($"{i+1}\t Tomt");
-                        freespaceCounter++;
-                    
+                    Console.WriteLine($"{i + 1}\t Tomt");
+                    freespaceCounter++;
                 }
                 else
                 {  
@@ -441,7 +436,7 @@ namespace Harbour
             Console.Write($"Lastfartyg: {ofTypeCargo.Count()}\t");
 
             var ofTypeSailBoat = allBoats.OfType<SailBoat>();
-            Console.Write($"Sailbåtar: {ofTypeSailBoat.Count()}\t");
+            Console.Write($"Segelbåtar: {ofTypeSailBoat.Count()}\t");
 
             var ofTypeMotorBoat = allBoats.OfType<MotorBoat>();
             Console.Write($"Motorbåtar:{ofTypeMotorBoat.Count()}\t");
