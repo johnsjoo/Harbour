@@ -7,7 +7,7 @@ using System.Text;
 namespace Harbour
 {
 
-    //List<Order> SortedList = arrival.OrderBy(o=>o.OrderDate).ToList();
+   
 
 
     class Boat
@@ -24,9 +24,9 @@ namespace Harbour
         public int uniqueProp { get; set; }
 
 
-        public static int KnotsToKmPerHour(int number)
+        public static int KnotsToKmPerHour(int knots)
         {        
-            double result = number * 1.85200;
+            double result = knots * 1.85200;
             return (int)result;
         }
         public static int FotToMeter(int fot)
@@ -36,7 +36,7 @@ namespace Harbour
         }
         public static string GenerateBoatId(string boatID)
         {
-            //Metod som returnerar 3 unika bpkstäver till vårt Boat-id.
+            //Metod som returnerar 3 unika bokstäver till vårt Boat-id.
             for (int i = 0; i < 3; i++)
             {
                 char randomChar = (char)rnd.Next('A', 'Z');

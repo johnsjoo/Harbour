@@ -22,9 +22,11 @@ namespace Harbour
 
         static void Main(string[] args)
         {
-            List<Boat> arrivalboats = new List<Boat>();
             //Array med listor i. 
-            List<Boat>[] harBour = new List <Boat> [64];
+            List<Boat>[] harBour = new List<Boat>[64];
+            List<Boat> arrivalboats = new List<Boat>();
+            
+
             ListsInArray(harBour);
             Console.WriteLine("Välkommen till hamenen! Tryck [Enter] för att påbörja en ny dag i hamnen \n");
             ReadFile(harBour, path);
@@ -229,6 +231,7 @@ namespace Harbour
             //loopa igenom alla platser i hamnen
             for (int i = 0; i < harBour.Length; i++)
             {
+                //Här lägger vi till en roddbår bredvid en annan roddbåt.
                 if (harBour[i].Count == 1 && currentBoat is Rowboat && harBour[i].First() is Rowboat)
                 {
                     currentBoat.SlotNumber = i;
